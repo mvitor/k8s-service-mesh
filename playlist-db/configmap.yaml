@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  appendonly.aof: "*2\r\n$6\r\nSELECT\r\n$1\r\n0\r\n*3\r\n$3\r\nset\r\n$9\r\nplaylists\r\n$515\r\n\n\t[\n\t\t{\n\t\t\t\"id\"
+    : \"1\",\n\t\t\t\"name\" : \"CI/CD\",\n\t\t\t\"videos\": [ { \"id\" : \"OFgziggbCOg\"},
+    { \"id\" : \"myCcJJ_Fk10\"}, { \"id\" : \"2WSJF7d8dUg\"}]\n\t\t},\n\t\t{\n\t\t\t\"id\"
+    : \"2\",\n\t\t\t\"name\" : \"K8s in the Cloud\",\n\t\t\t\"videos\": [ { \"id\"
+    : \"QThadS3Soig\"}, { \"id\" : \"eyvLwK5C2dw\"}]\n\t\t},\n\t\t{\n\t\t\t\"id\"
+    : \"3\",\n\t\t\t\"name\" : \"Storage and MessageBrokers\",\n\t\t\t\"videos\":
+    [ { \"id\" : \"JmCn7k0PlV4\"}, { \"id\" : \"_lpDfMkxccc\"}]\n\n\t\t},\n\t\t{\n\t\t\t\"id\"
+    : \"4\",\n\t\t\t\"name\" : \"K8s Autoscaling\",\n\t\t\t\"videos\": [ { \"id\"
+    : \"jM36M39MA3I\"}, { \"id\" : \"FfDI08sgrYY\"}]\n\t\t}\n\t]\n\t\r\n"
+kind: ConfigMap
+metadata:
+  name: playlists-db

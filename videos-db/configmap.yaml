@@ -1,0 +1,30 @@
+apiVersion: v1
+data:
+  appendonly.aof: "*2\r\n$6\r\nSELECT\r\n$1\r\n0\r\n*3\r\n$3\r\nset\r\n$11\r\njM36M39MA3I\r\n$206\r\n{\n\t\t\"id\"
+    : \"jM36M39MA3I\",\n\t\t\"title\" : \"Kubernetes cluster autoscaling\",\n\t\t\"imageurl\"
+    : \"https://i.ytimg.com/vi/jM36M39MA3I/sddefault.jpg\",\n\t\t\"url\" : \"https://youtu.be/jM36M39MA3I\",\n\t\t\"description\"
+    : \"\"\n\t}\n\t\r\n*3\r\n$3\r\nset\r\n$11\r\nFfDI08sgrYY\r\n$202\r\n{\n\t\t\"id\"
+    : \"FfDI08sgrYY\",\n\t\t\"title\" : \"Kubernetes pod autoscaling\",\n\t\t\"imageurl\"
+    : \"https://i.ytimg.com/vi/FfDI08sgrYY/sddefault.jpg\",\n\t\t\"url\" : \"https://youtu.be/FfDI08sgrYY\",\n\t\t\"description\"
+    : \"\"\n\t}\n\t\r\n*3\r\n$3\r\nset\r\n$11\r\nJmCn7k0PlV4\r\n$195\r\n{\n\t\t\"id\"
+    : \"JmCn7k0PlV4\",\n\t\t\"title\" : \"Redis on Kubernetes\",\n\t\t\"imageurl\"
+    : \"https://i.ytimg.com/vi/JmCn7k0PlV4/sddefault.jpg\",\n\t\t\"url\" : \"https://youtu.be/JmCn7k0PlV4\",\n\t\t\"description\"
+    : \"\"\n\t}\n\t\r\n*3\r\n$3\r\nset\r\n$11\r\n_lpDfMkxccc\r\n$198\r\n{\n\t\t\"id\"
+    : \"_lpDfMkxccc\",\n\t\t\"title\" : \"RabbitMQ on Kubernetes\",\n\t\t\"imageurl\"
+    : \"https://i.ytimg.com/vi/_lpDfMkxccc/sddefault.jpg\",\n\t\t\"url\" : \"https://youtu.be/_lpDfMkxccc\",\n\t\t\"description\"
+    : \"\"\n\t}\n\t\r\n*3\r\n$3\r\nset\r\n$11\r\nOFgziggbCOg\r\n$183\r\n{\n\t\t\"id\"
+    : \"OFgziggbCOg\",\n\t\t\"title\" : \"Flux CD\",\n\t\t\"imageurl\" : \"https://i.ytimg.com/vi/OFgziggbCOg/sddefault.jpg\",\n\t\t\"url\"
+    : \"https://youtu.be/OFgziggbCOg\",\n\t\t\"description\" : \"\"\n\t}\n\t\r\n*3\r\n$3\r\nset\r\n$11\r\nmyCcJJ_Fk10\r\n$184\r\n{\n\t\t\"id\"
+    : \"myCcJJ_Fk10\",\n\t\t\"title\" : \"Drone CI\",\n\t\t\"imageurl\" : \"https://i.ytimg.com/vi/myCcJJ_Fk10/sddefault.jpg\",\n\t\t\"url\"
+    : \"https://youtu.be/myCcJJ_Fk10\",\n\t\t\"description\" : \"\"\n\t}\n\t\r\n*3\r\n$3\r\nset\r\n$11\r\n2WSJF7d8dUg\r\n$183\r\n{\n\t\t\"id\"
+    : \"2WSJF7d8dUg\",\n\t\t\"title\" : \"Argo CD\",\n\t\t\"imageurl\" : \"https://i.ytimg.com/vi/2WSJF7d8dUg/sddefault.jpg\",\n\t\t\"url\"
+    : \"https://youtu.be/2WSJF7d8dUg\",\n\t\t\"description\" : \"\"\n\t}\n\t\r\n*3\r\n$3\r\nset\r\n$11\r\nQThadS3Soig\r\n$196\r\n{\n\t\t\"id\"
+    : \"QThadS3Soig\",\n\t\t\"title\" : \"Kubernetes on Amazon\",\n\t\t\"imageurl\"
+    : \"https://i.ytimg.com/vi/QThadS3Soig/sddefault.jpg\",\n\t\t\"url\" : \"https://youtu.be/QThadS3Soig\",\n\t\t\"description\"
+    : \"\"\n\t}\n\t\r\n*3\r\n$3\r\nset\r\n$11\r\neyvLwK5C2dw\r\n$244\r\n{\n\t\t\"id\"
+    : \"eyvLwK5C2dw\",\n\t\t\"title\" : \"Kubernetes on Azure\",\n\t\t\"imageurl\"
+    : \"https://i.ytimg.com/vi/eyvLwK5C2dw/mqdefault.jpg?sqp=CISC_PoF&rs=AOn4CLDo7kizrJozB0pxBhxL9JbyiW_EPw\",\n\t\t\"url\"
+    : \"https://youtu.be/eyvLwK5C2dw\",\n\t\t\"description\" : \"\"\n\t}\r\n"
+kind: ConfigMap
+metadata:
+  name: videos-db
