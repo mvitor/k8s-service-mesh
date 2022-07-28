@@ -1,21 +1,22 @@
-# k8s-service-mesh
+# Go Api
+
+Golang API which outputs hostname. This api is intended to be utilized in CI CD Pipelines integrations with tools like ArgoCD, InfluxCD also some Ingress tests will be elaborated so this API will have more features to leverage Ingress features.
 
 
-## ingress-nginx
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.1/deploy/static/provider/cloud/deploy.yaml
+Creation of Golang API hosted on Kubernetes with Docker images
 
+Steps:
+1 - Install kind using kind.yaml
+2 - Prepare Golang API code to GET data (Data from node will be returned)
+3 - Prepare Docker build image to build and host Golang API
+4 - Create Kubernetes Deployment with 2 replicas
+5 - Create Ingress Service for Clusterip
+6 - Access browser
 
-## Manifests
-kubectl apply -f video-web/
+Roadmap to be implemented in next steps:
 
-kubectl port-forward svc/videos-web 8080:80
-
-kubectl apply -f playlist-api/
-
-kubectl apply -f playlist-db/
-
-kubectl port-forward svc/playlists-api 8080:80
-
-kubectl apply -f videos-db/
-
-https://github.com/mvitor/k8s-service-mesh.git
+1 - Implement Github action workflow
+2 - Integrate ArgoCD
+3 - Implement Autoscaling
+4 - Implement NGINX rules
+5 - Implement DB with Persistent Volume

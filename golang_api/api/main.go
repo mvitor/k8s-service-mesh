@@ -1,27 +1,25 @@
 package main
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
+	"os"
 )
 
 func main() {
-	
+
 	http.HandleFunc("/", HandleGet)
 
 	http.ListenAndServe(":8080", nil)
 }
 
+func HandleGet(w http.ResponseWriter, r *http.Request) {
 
-func HandleGet(w http.ResponseWriter, r *http.Request){
-	
-	// videos := getVideos()
-
-	// videoBytes, err  := json.Marshal(videos)
-
-	// if err != nil {
-  	// panic(err)
-	// }
+	hostname, err := os.Hostname()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	fmt.Fprintf(w, "GoLang Hello from Host: %s", hostname)
 	fmt.Println("Endpoint Hit: homePage")
-	//w.Write("all good!")
 }

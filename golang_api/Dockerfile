@@ -11,8 +11,9 @@ FROM golang:1.19rc2-alpine3.16 as build
 WORKDIR /api
 COPY ./api/* /api/
 RUN go build -o api
+
 ##
-## Deploy
+## Deploy build to image
 ##
 
 FROM alpine as runtime 

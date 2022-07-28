@@ -1,3 +1,8 @@
+# Go Api
+
+Golang API which outputs hostname. This api is intended to be utilized in CI CD Pipelines integrations with tools like ArgoCD, InfluxCD also some Ingress tests will be elaborated so this API will have more features to leverage Ingress features.
+
+
 Creation of Golang API hosted on Kubernetes with Docker images
 
 Steps:
