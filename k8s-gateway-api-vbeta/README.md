@@ -1,11 +1,15 @@
 
+
+docker build . -t hi-hostname-golang-api
+
+
 https://gateway-api.sigs.k8s.io/guides/getting-started/#installing-a-gateway-controller
 
 # Install Standard Channel¶
 The standard release channel includes all resources that have graduated to beta, including GatewayClass, Gateway, and HTTPRoute. To install this channel, run the following kubectl command:
 
 ```
-kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v0.5.0
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v0.5.0/standard-install.yaml
 ```
 # Deploying a simple Gateway¶
 

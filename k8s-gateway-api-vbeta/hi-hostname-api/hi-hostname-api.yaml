@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hi-hostname-api
+  labels:
+    app: hi-hostname-api
+spec:
+  selector:
+    matchLabels:
+      app: hi-hostname-api
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: hi-hostname-api
+    spec:
+      containers:
+      - name: hi-hostname-api
+        image: mvitor/hi-hostname-golang-api:latest
+        imagePullPolicy : Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: "ENVIRONMENT"
+          value: "DEV"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hi-hostname-api-service
+  labels:
+    app: hi-hostname-api-service
+spec:
+  type: ClusterIP
+  selector:
+    app: hi-hostname-api
+  ports:
+    - protocol: TCP
+      name: http
+      port: 80
+      targetPort: 8080
