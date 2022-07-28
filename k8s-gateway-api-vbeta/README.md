@@ -1,8 +1,26 @@
 
+#  Useful commands
 
 docker build . -t hi-hostname-golang-api
 
+kind create cluster --config kind.yaml
 
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v0.5.0/standard-install.yaml
+
+
+kubectl apply -f gateway-api/gateway-api.yaml
+kubectl apply -f hi-hostname-api/hi-hostname-api.yaml
+kubectl apply -f hello-hostname-api/hello-hostname-api.yaml
+
+helm repo add kong https://charts.konghq.com
+helm repo update
+helm install --create-namespace --namespace kong kong kong/kong --set feature-gates=Gateway=true
+
+## Metrics Yaml
+kubectl apply -f ../metrics_components.yaml
+
+
+Metrics is pulling data every 60s to save resources. 
 https://gateway-api.sigs.k8s.io/guides/getting-started/#installing-a-gateway-controller
 
 # Install Standard Channel¶

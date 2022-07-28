@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hi-hostname-api
+  namespace: default
+ 
+spec:
+  ingressClassName: kong
+  rules:
+  - http:
+      paths:
+      - path: /greet/hi
+        pathType: Prefix
+        backend:
+          service:
+            name: hi-hostname-api-service
+            port:
+              number: 80

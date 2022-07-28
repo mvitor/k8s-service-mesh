@@ -1,24 +1,25 @@
 apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: GatewayClass
 metadata:
-  name: greetingapi-lb
+  name: gateway-class
 spec:
-  controllerName: greetingapi.io/gateway-controller
-  parametersRef:
-    name: greetingapi-lb
-    group: greetingapi.io
-    kind: Parameters
+  controllerName: konghq.com/kic-gateway-controller
 ---
 apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: Gateway
 metadata:
-  name: my-gateway-api
+  annotations:
+    konghq.com/gateway-unmanaged: kong/kong-kong-proxy
+  name: kong
 spec:
-  gatewayClassName: greetingapi-lb
-  listeners:  # Use GatewayClass defaults for listener definition.
-  - name: http
-    protocol: HTTP
+  gatewayClassName: gateway-class
+  listeners:
+  - name: proxy
     port: 80
+    protocol: HTTP
+  - name: proxy-ssl
+    port: 443
+    protocol: HTTPS
 ---
 apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: HTTPRoute
@@ -28,14 +29,14 @@ spec:
   parentRefs:
   - name: my-gateway-api
   hostnames:
-  - "mvitor.com"
+  - "mvitormais.com"
   rules:
   - matches:
     - path:
         type: PathPrefix
         value: /greet/hi
     backendRefs:
-    - name: hi-hostname-api
+    - name: hi-hostname-api-service
       port: 8080
   - matches:
     - path:
@@ -43,5 +44,5 @@ spec:
         value: /greet/hello
       method: GET
     backendRefs:
-    - name: hello-hostname-api
+    - name: hello-hostname-api-service
       port: 8080
