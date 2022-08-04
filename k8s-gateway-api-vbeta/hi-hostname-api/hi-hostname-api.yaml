@@ -32,15 +32,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hi-hostname-api-service
-  labels:
-    app: hi-hostname-api-service
+  name: hi-hostname-api
 spec:
-  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
   selector:
     app: hi-hostname-api
-  ports:
-    - protocol: TCP
-      name: http
-      port: 80
-      targetPort: 8080

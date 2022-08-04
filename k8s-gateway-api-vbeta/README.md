@@ -2,19 +2,38 @@
 #  Useful commands
 
 docker build . -t hi-hostname-golang-api
+## Kind
+
+We're using Kind to create a local host. But that can by any EKS cluster. 
 
 kind create cluster --config kind.yaml
+kind load docker-image mvitor/nginx-k8s-gateway:0.0.1
+
+kubectl apply -k "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v0.4.2"
 
 kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v0.5.0/standard-install.yaml
 
+kubectl apply -f deploy/manifests/namespace.yaml
 
-kubectl apply -f gateway-api/gateway-api.yaml
-kubectl apply -f hi-hostname-api/hi-hostname-api.yaml
+kubectl create configmap njs-modules --from-file=internal/nginx/modules/src/httpmatches.js -n nginx-gateway
+
+kubectl apply -f deploy/manifests/gatewayclass.yaml
+kubectl apply -f deploy/manifests/nginx-gateway.yaml
+
+kubectl apply -f  deploy/manifests/service/loadbalancer.yaml -n nginx-gateway
+
+kubectl apply -f hi-hostname-api/hi-hostname-api.yaml 
 kubectl apply -f hello-hostname-api/hello-hostname-api.yaml
+kubectl apply -f gateway-api/gateway-api.yaml
+
 
 helm repo add kong https://charts.konghq.com
 helm repo update
+helm install kong kong/kong --values 
+
 helm install --create-namespace --namespace kong kong kong/kong --set feature-gates=Gateway=true
+
+helm install --values consul-values.yaml consul hashicorp/consul
 
 ## Metrics Yaml
 kubectl apply -f ../metrics_components.yaml

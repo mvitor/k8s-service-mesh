@@ -32,15 +32,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-hostname-api-service
-  labels:
-    app: hello-hostname-api-service
+  name: hello-hostname-api
 spec:
-  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
   selector:
     app: hello-hostname-api
-  ports:
-    - protocol: TCP
-      name: http
-      port: 80
-      targetPort: 8080
