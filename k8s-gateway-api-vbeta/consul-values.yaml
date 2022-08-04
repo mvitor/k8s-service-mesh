@@ -1,0 +1,4 @@
+args: 
+  apiGateway: true
+apiGateway: true
+image: api-gateway.consul.hashicorp.com/v1alpha1

@@ -1,0 +1,14 @@
+env:
+  prefix: /kong_prefix/
+  database: "off"
+  LOG_LEVEL: "error"
+args: 
+  ingressController.env.feature_gates: Gateway=true
+ingressController:
+  ingressClass: "kong"
+  enabled: true
+  installCRDs: false
+  features_gates: Gateway=true
+admin:
+  tls:
+    parameters: []

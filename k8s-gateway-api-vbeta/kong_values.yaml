@@ -1,0 +1,5 @@
+ingressController:
+  args: 
+    - --feature-gates=Gateway=true
+args: 
+  - --feature-gates=Gateway=true
