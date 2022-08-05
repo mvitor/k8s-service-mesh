@@ -1,30 +1,125 @@
+# Gateway API Announcement 
 
-#  Useful commands
+Recently Kubernet SIG Network team has announced the alpha release of Gateway API
 
-docker build . -t hi-hostname-golang-api
+# Tutorial Sections
+
+This tutorial is seggregated in three main sections which is requirements for the next steps.   
+
+## Build Golang APIs to route traffic 
+
+We need to have Kubernetes HTTP Services so we can route traffic to them. In this section we're building two Golang APis and deploying them as Kubernetes Services. 
+
+If you already have APIs to route traffic in your K8s cluster this step can be skipped.  
+
+## Install NGINX Kubernetes Gateway
+
+NGINX Kubernetes Gateway is an open-source project that provides an implementation of the Gateway API using NGINX. That project goal is to implement the core Kubernetes Gateway APIs funcionalities which are being released by Kubernetes SIG Network team: Gateway, GatewayClass, HTTPRoute, TCPRoute, TLSRoute, and UDPRoute which allow to configure an HTTP or TCP/UDP load balancer, reverse-proxy, or API gateway for applications running on Kubernetes.
+
+The steps described on this section are taken from the official [nginx-kubernetes-gateway](https://github.com/nginxinc/nginx-kubernetes-gateway/) repository. It's going to create a Nginx Gateway API image and make it available to your cluster, install the controllers, gateway classes and finally setup Nginx proxy.
+
+If you are already have an nginx-kubernetes-gateway image running and Gateway classes available this step can be skipped. 
+
+## Create Gateway API and Http Routes 
+
+This step is where we're actually levereging the Gateway API funcionalities. We're creating the Gateway API and the HTTP Routes in different ways. 
+#  Create Hi and Hello Golang APIs
+
+We're using two different Golang APIs to route the traffic. I'm creating two hyphotetical API. FIrst one should Greet with a Hi and the name of the Pod, second one should greet with a Hello and the name of the Pod. With this we're able to differentiate between the APIs calls we will use to validate the routing works as expected.
+
 ## Kind
 
-We're using Kind to create a local host. But that can by any EKS cluster. 
+We're using Kind to run a local cluster but the procedure works for any [A-Z]KS cluster. :) For EKS it's suggested different Load Balancer configuration. 
 
+### Kind Manifest file
+```
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+- role: worker
+```
+### Kind Create command
+
+```
 kind create cluster --config kind.yaml
-kind load docker-image mvitor/nginx-k8s-gateway:0.0.1
+```
 
+##
+## Exposing Two Http services
+
+kubectl apply -f hi-hostname-api/hi-hostname-api.yaml 
+kubectl apply -f hello-hostname-api/hello-hostname-api.yaml
+
+docker build . -t hi-hostname-golang-api
+
+### Golang Hi API
+
+### Golang Hello API 
+# NGINX Kubernetes Gateway Setup
+## Build Nginx Gateway api Image 
+
+### Clone nginx-kubernetes-gateway 
+```
+git clone https://github.com/nginxinc/nginx-kubernetes-gateway.git
+cd nginx-kubernetes-gateway
+```
+### Build Image
+
+make PREFIX=myregistry.example.com/nginx-kubernetes-gateway container
+
+Set the PREFIX variable to the name of the registry you'd like to push the image to. By default, the image will be named nginx-kubernetes-gateway:0.0.1.
+### Push the image 
+docker push myregistry.example.com/nginx-kubernetes-gateway:0.0.1
+
+Make sure to substitute myregistry.example.com/nginx-kubernetes-gateway with your private registry.
+
+
+### Kind Load Image 
+#### Load the NGINX Kubernetes Gateway image onto your kind cluster
+```
+kind load docker-image mvitor/nginx-k8s-gateway:0.0.1
+```
+#### Install the Gateway CRDs
+```
 kubectl apply -k "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v0.4.2"
 
 kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v0.5.0/standard-install.yaml
 
+???
+
+```
+#### Create the nginx-gateway Namespace 
+
 kubectl apply -f deploy/manifests/namespace.yaml
 
+#### Create the njs-modules configmap
 kubectl create configmap njs-modules --from-file=internal/nginx/modules/src/httpmatches.js -n nginx-gateway
 
+#### Create the GatewayClass resource
+
 kubectl apply -f deploy/manifests/gatewayclass.yaml
+
+#### Deploy the NGINX Kubernetes Gateway:
+
 kubectl apply -f deploy/manifests/nginx-gateway.yaml
+
+#### Create Load Balancer Service 
 
 kubectl apply -f  deploy/manifests/service/loadbalancer.yaml -n nginx-gateway
 
-kubectl apply -f hi-hostname-api/hi-hostname-api.yaml 
-kubectl apply -f hello-hostname-api/hello-hostname-api.yaml
+# Create Gateway API
+## Create Gateway API Class
+
 kubectl apply -f gateway-api/gateway-api.yaml
+## Create Gateway API API
+### Create HTTP Routes
+###   
+kubectl apply -f gateway-api/gateway-api.yaml
+## Access it using Port-forward 
+kubectl port-forward svc/nginx-gateway 8080:80 -n nginx-gateway
+
+curl --resolve mvitormais.com:8080:127.0.0.1 http://mvitormais.com:8080/greet
 
 
 helm repo add kong https://charts.konghq.com
@@ -99,14 +194,14 @@ spec:
 
 kubectl delete -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v0.5.0
 
+A
 Links:
+
+https://github.com/nginxinc/nginx-kubernetes-gateway/
+
 
 What is the Gateway API?
 https://gateway-api.sigs.k8s.io
-
-
-Ingress:
-https://kubernetes.io/docs/concepts/services-networking/ingress/
 
 API Overview:
 https://gateway-api.sigs.k8s.io/concepts/api-overview/#gatewayclass
@@ -117,6 +212,9 @@ https://kubernetespodcast.com/episode/186-gateway-api-beta/
 
 Understanding the new Kubernetes Gateway API vs Ingress
 https://www.youtube.com/watch?v=Zqlwn5TZknI&t=458s
+
+Ingress:
+https://kubernetes.io/docs/concepts/services-networking/ingress/
 
 Kubernetes Networking 101 - Randy Abernethy, RX-M LLC
 https://www.youtube.com/watch?v=cUGXu2tiZMc
