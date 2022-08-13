@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    imagename = "yenigul/hacicenkins"
+    imagename = "mvitor/imagename"
     registryCredential = 'mvitor'
     dockerImage = ''
   }

@@ -1,18 +1,38 @@
-# Gateway API Announcement 
+# Kubernetes Gateway API tutorial with NGINX controller
+
+## Gateway API Announcement 
 
 Recently Kubernet SIG Network team has announced the alpha release of Gateway API
 
-# Tutorial Sections
+### Why Gateway API
+
+It's a decision you need to take when desiging your applications. This discussion is not the point on this so I'm sharing the following NGINX Blog post about and Webinar with information about this design decision.
+
+#### How Do I Choose? API Gateway vs. Ingress Controller vs. Service Mesh
+
+NGINX Blog post Guides you through the decision about which technology to use for API gateway use cases, with sample scenarios for north‑south and east‑west API traffic.
+
+[https://www.nginx.com/blog/how-do-i-choose-api-gateway-vs-ingress-controller-vs-service-mesh/](https://www.nginx.com/blog/how-do-i-choose-api-gateway-vs-ingress-controller-vs-service-mesh/)
+
+
+#### API Gateway Use Cases for Kubernetes
+
+NGINX Webinar Discussing the various tools and use cases, our experts demo how you can use an Ingress controller and service mesh to accomplish API gateway use cases.
+
+[https://www.nginx.com/resources/webinars/api-gateway-use-cases-for-kubernetes/](https://www.nginx.com/resources/webinars/api-gateway-use-cases-for-kubernetes/)
+
+
+## Tutorial Three Sections
 
 This tutorial is seggregated in three main sections which is requirements for the next steps.   
 
-## Build Golang APIs to route traffic 
+### Build Golang APIs to route traffic 
 
 We need to have Kubernetes HTTP Services so we can route traffic to them. In this section we're building two Golang APis and deploying them as Kubernetes Services. 
 
 If you already have APIs to route traffic in your K8s cluster this step can be skipped.  
 
-## Install NGINX Kubernetes Gateway
+### Install NGINX Kubernetes Gateway
 
 NGINX Kubernetes Gateway is an open-source project that provides an implementation of the Gateway API using NGINX. That project goal is to implement the core Kubernetes Gateway APIs funcionalities which are being released by Kubernetes SIG Network team: Gateway, GatewayClass, HTTPRoute, TCPRoute, TLSRoute, and UDPRoute which allow to configure an HTTP or TCP/UDP load balancer, reverse-proxy, or API gateway for applications running on Kubernetes.
 
@@ -46,12 +66,14 @@ kind create cluster --config kind.yaml
 ```
 
 ##
-## Exposing Two Http services
+### Exposing Two Http services
 
+```
 kubectl apply -f hi-hostname-api/hi-hostname-api.yaml 
 kubectl apply -f hello-hostname-api/hello-hostname-api.yaml
 
 docker build . -t hi-hostname-golang-api
+```
 
 ### Golang Hi API
 
@@ -65,13 +87,14 @@ git clone https://github.com/nginxinc/nginx-kubernetes-gateway.git
 cd nginx-kubernetes-gateway
 ```
 ### Build Image
-
+```
 make PREFIX=myregistry.example.com/nginx-kubernetes-gateway container
-
+```
 Set the PREFIX variable to the name of the registry you'd like to push the image to. By default, the image will be named nginx-kubernetes-gateway:0.0.1.
 ### Push the image 
+```
 docker push myregistry.example.com/nginx-kubernetes-gateway:0.0.1
-
+```
 Make sure to substitute myregistry.example.com/nginx-kubernetes-gateway with your private registry.
 
 
@@ -90,34 +113,43 @@ kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/downloa
 
 ```
 #### Create the nginx-gateway Namespace 
-
+```
 kubectl apply -f deploy/manifests/namespace.yaml
-
+```
 #### Create the njs-modules configmap
+```
 kubectl create configmap njs-modules --from-file=internal/nginx/modules/src/httpmatches.js -n nginx-gateway
-
+```
 #### Create the GatewayClass resource
-
+```
 kubectl apply -f deploy/manifests/gatewayclass.yaml
-
+```
 #### Deploy the NGINX Kubernetes Gateway:
-
+```
 kubectl apply -f deploy/manifests/nginx-gateway.yaml
-
+```
 #### Create Load Balancer Service 
-
+```
 kubectl apply -f  deploy/manifests/service/loadbalancer.yaml -n nginx-gateway
-
-# Create Gateway API
-## Create Gateway API Class
-
+```
+## Create Gateway API
+### Create Gateway API Class
+```
 kubectl apply -f gateway-api/gateway-api.yaml
-## Create Gateway API API
+```
+### Create Gateway API API
 ### Create HTTP Routes
-###   
+
+
+```
 kubectl apply -f gateway-api/gateway-api.yaml
+```
 ## Access it using Port-forward 
+
+```
 kubectl port-forward svc/nginx-gateway 8080:80 -n nginx-gateway
+```
+
 
 curl --resolve mvitormais.com:8080:127.0.0.1 http://mvitormais.com:8080/greet
 
