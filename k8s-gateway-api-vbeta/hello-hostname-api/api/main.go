@@ -20,6 +20,5 @@ func HandleGet(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	fmt.Fprintf(w, "GoLang Hi from Pod: %s", hostname)
-	fmt.Println("Endpoint Hit: homePage")
+	fmt.Fprintf(w, "GoLang Hello from Pod: %s", hostname)
 }
