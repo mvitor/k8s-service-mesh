@@ -1,8 +1,12 @@
-# Kubernetes Gateway API tutorial with NGINX controller
+# Kubernetes Gateway API tutorial
 
-## Gateway API Announcement 
+## Kubernetes Gateway API 
 
-Recently Kubernet SIG Network team has announced the alpha release of Gateway API
+Gateway API is an open source project managed by the Kubernetes Network Special Interest Group (SIG‑NETWORK) community to improve and standardize service networking in Kubernetes.
+
+### Gateway API Beta Announcement 
+
+Recently Kubernetes SIG-Network team has announced the v0.5.0 release of Gateway API, Kubernetes Gateway API is graduating to Beta.
 
 ### Why Gateway API
 
@@ -10,7 +14,7 @@ It's a decision you need to take when desiging your applications. This discussio
 
 #### How Do I Choose? API Gateway vs. Ingress Controller vs. Service Mesh
 
-NGINX Blog post Guides you through the decision about which technology to use for API gateway use cases, with sample scenarios for north‑south and east‑west API traffic.
+This NGINX Blog post guides you through the decision about which technology to use for API gateway use cases, with sample scenarios for north‑south and east‑west API traffic.
 
 [https://www.nginx.com/blog/how-do-i-choose-api-gateway-vs-ingress-controller-vs-service-mesh/](https://www.nginx.com/blog/how-do-i-choose-api-gateway-vs-ingress-controller-vs-service-mesh/)
 
@@ -21,10 +25,11 @@ NGINX Webinar Discussing the various tools and use cases, our experts demo how y
 
 [https://www.nginx.com/resources/webinars/api-gateway-use-cases-for-kubernetes/](https://www.nginx.com/resources/webinars/api-gateway-use-cases-for-kubernetes/)
 
+ Kubernetes Gateway API tutorial
 
 ## Tutorial Three Sections
 
-This tutorial is seggregated in three main sections which is requirements for the next steps.   
+This tutorial is separated in three main sections which are requirements for the next steps.   
 
 ### Build Golang APIs to route traffic 
 
@@ -32,7 +37,11 @@ We need to have Kubernetes HTTP Services so we can route traffic to them. In thi
 
 If you already have APIs to route traffic in your K8s cluster this step can be skipped.  
 
-### Install NGINX Kubernetes Gateway
+## Kubernetes Gateway API tutorial with NGINX controller
+
+We will be utilizing NGINX Kubernetes Gateway controller that implements the Kubernetes Gateway API specification. NGINX is an active contributor to the Kubernetes Gateway API project.
+ 
+### Installing NGINX Kubernetes Gateway
 
 NGINX Kubernetes Gateway is an open-source project that provides an implementation of the Gateway API using NGINX. That project goal is to implement the core Kubernetes Gateway APIs funcionalities which are being released by Kubernetes SIG Network team: Gateway, GatewayClass, HTTPRoute, TCPRoute, TLSRoute, and UDPRoute which allow to configure an HTTP or TCP/UDP load balancer, reverse-proxy, or API gateway for applications running on Kubernetes.
 
