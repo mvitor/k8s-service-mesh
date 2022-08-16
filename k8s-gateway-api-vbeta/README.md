@@ -42,14 +42,12 @@ NGINX Kubernetes Gateway is an open-source project that provides an implementati
 
 The steps described on this section are taken from the official [nginx-kubernetes-gateway](https://github.com/nginxinc/nginx-kubernetes-gateway/) repository. It's going to create a Nginx Gateway API image and make it available to your cluster, install the controllers, gateway classes and finally setup Nginx proxy.
 
-If you are already have an nginx-kubernetes-gateway image running and Gateway classes available this step can be skipped. 
+* If you already have an nginx-kubernetes-gateway image running and Gateway classes available this step can be skipped. 
 
  
 #### 3 - Installing NGINX Kubernetes Gateway API Class and HTTP Routes
 
 NGINX is an active contributor to the Kubernetes Gateway API project and is up to date with the most recent features released. We will be utilizing NGINX Kubernetes Gateway controller that implements the Kubernetes Gateway API specification. 
-
-
 
 ## Tutorial configuration files and scripts repository 
 
@@ -58,7 +56,7 @@ All YAML configuration file and scripts utilized on this tutorial are available 
 
 ## 1 -  Build Golang APIs to route traffic 
 
-This step is where we're actually leveraging the Gateway API functionalities. We're creating the Gateway API and the HTTP Routes in different ways. 
+This step is when we're actually leveraging the Gateway API functionalities. We're creating the Gateway API and the HTTP Routes in different ways. 
 
 
 ###  Create Hi and Hello Golang APIs
@@ -441,6 +439,10 @@ spec:
 ## Clean up 
 
 kubectl delete -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v0.5.0
+
+
+kind delete cluster
+
 
 ### Links
 
